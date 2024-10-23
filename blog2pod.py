@@ -6,7 +6,7 @@ from discord_slash import SlashCommand, SlashContext
 from discord import Embed
 import os 
 from dotenv import load_dotenv
-from openai import AzureOpenAI
+from openai import OpenAI
 from pathlib import Path
 from pydub import AudioSegment
 import shutil
@@ -26,14 +26,10 @@ load_dotenv()
 # Initialize log
 logging.basicConfig(filename='debug.log', level=logging.INFO)
 
-azure_endpoint = os.getenv("AZURE_ENDPOINT")
-tts_deployment = os.getenv("TTS_DEPLOYMENT")
 tts_voice = os.getenv("TTS_VOICE")
 
-ttsclient = AzureOpenAI(
-    api_key=os.getenv("API_KEY"),  
-    api_version="2024-02-15-preview",
-    azure_endpoint=f"{azure_endpoint}/openai/deployments/{tts_deployment}/audio/speech?api-version=2024-02-15-preview"
+ttsclient = OpenAI(
+    api_key=os.getenv("API_KEY")
 )
 
 # Initialize discord client
